@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+*.db
+node_modules/
+dist/
+.pytest_cache/
+
+# Intermediate artefacts from docs/build_docx.py (the .docx itself is committed)
+docs/_build/

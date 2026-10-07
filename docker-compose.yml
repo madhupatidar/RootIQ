@@ -1,0 +1,32 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ovpoc-postgres
+    environment:
+      POSTGRES_USER: ovpoc
+      POSTGRES_PASSWORD: ovpoc
+      POSTGRES_DB: ovpoc
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ovpoc"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Optional: run Ollama in Docker instead of natively.
+  # If you already run Ollama on the host, skip this with:
+  #   docker compose up -d postgres
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ovpoc-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+
+volumes:
+  pgdata:
+  ollama:
